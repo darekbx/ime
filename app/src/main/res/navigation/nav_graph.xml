@@ -1,0 +1,38 @@
+<?xml version="1.0" encoding="utf-8"?>
+<navigation xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    app:startDestination="@id/secureFragment">
+
+    <fragment
+        android:id="@+id/secureFragment"
+        android:name="em.i.ui.secure.SecureFragment"
+        android:label="secure_fragment"
+        tools:layout="@layout/secure_fragment" >
+        <action
+            android:id="@+id/action_secureFragment_to_previewFragment"
+            app:destination="@id/previewFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/previewFragment"
+        android:name="em.i.PreviewFragment"
+        android:label="fragment_preview"
+        tools:layout="@layout/fragment_preview" >
+        <action
+            android:id="@+id/action_previewFragment_to_itemFragment"
+            app:destination="@id/itemFragment" />
+        <action
+            android:id="@+id/action_previewFragment_to_photoFragment"
+            app:destination="@id/photoFragment" />
+    </fragment>
+    <fragment
+        android:id="@+id/itemFragment"
+        android:name="em.i.ItemFragment"
+        android:label="fragment_item"
+        tools:layout="@layout/fragment_item" />
+    <fragment
+        android:id="@+id/photoFragment"
+        android:name="em.i.PhotoFragment"
+        android:label="fragment_photo"
+        tools:layout="@layout/fragment_photo" />
+</navigation>
