@@ -7,6 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.TextView
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -41,6 +42,13 @@ class PhotoFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_photo, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+        val photoId = PhotoFragmentArgs.fromBundle(arguments).photo_id
+        view.findViewById<TextView>(R.id.text).text = "$photoId"
     }
 
     // TODO: Rename method, update argument and hook method into UI event

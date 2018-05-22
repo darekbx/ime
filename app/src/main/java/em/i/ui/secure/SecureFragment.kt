@@ -5,6 +5,7 @@ import android.content.Context
 import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,9 +31,10 @@ class SecureFragment : Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
 
-        view.findViewById<Button>(R.id.unlock)?.setOnClickListener {
-            Navigation.createNavigateOnClickListener(R.id.previewFragment, null)
-        }
+        view.findViewById<Button>(R.id.unlock)
+                ?.setOnClickListener {
+                    findNavController().navigate(R.id.action_secureFragment_to_previewFragment)
+                }
     }
 
     override fun onActivityCreated(savedInstanceState: Bundle?) {

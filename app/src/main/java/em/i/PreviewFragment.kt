@@ -7,6 +7,10 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.widget.Button
+import androidx.navigation.NavOptions
+import androidx.navigation.Navigation
+import androidx.navigation.findNavController
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -41,6 +45,21 @@ class PreviewFragment : Fragment() {
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
         return inflater.inflate(R.layout.fragment_preview, container, false)
+    }
+
+    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
+        super.onViewCreated(view, savedInstanceState)
+
+
+        view.findViewById<Button>(R.id.go_to_photo)?.setOnClickListener {
+
+            var bundle = Bundle().apply {
+                putString("param1", "hello?")
+            }
+
+            val direction = PreviewFragmentDirections.action_previewFragment_to_photoFragment(10)
+            view.findNavController().navigate(direction)
+        }
     }
 
     // TODO: Rename method, update argument and hook method into UI event

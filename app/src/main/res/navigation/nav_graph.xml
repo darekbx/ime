@@ -34,5 +34,7 @@
         android:id="@+id/photoFragment"
         android:name="em.i.PhotoFragment"
         android:label="fragment_photo"
-        tools:layout="@layout/fragment_photo" />
+        tools:layout="@layout/fragment_photo">
+        <argument android:name="photo_id" app:type="integer"/>
+    </fragment>
 </navigation>
