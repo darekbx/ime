@@ -8,7 +8,7 @@
         android:id="@+id/secureFragment"
         android:name="em.i.ui.secure.SecureFragment"
         android:label="secure_fragment"
-        tools:layout="@layout/secure_fragment" >
+        tools:layout="@layout/fragment_secure" >
         <action
             android:id="@+id/action_secureFragment_to_previewFragment"
             app:destination="@id/previewFragment" />

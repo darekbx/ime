@@ -4,7 +4,6 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
-import em.i.ui.secure.SecureFragment
 
 class MainActivity : AppCompatActivity(),
         PreviewFragment.OnFragmentInteractionListener,
@@ -12,7 +11,7 @@ class MainActivity : AppCompatActivity(),
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-        setContentView(R.layout.main_activity)
+        setContentView(R.layout.activity_main)
     }
 
     override fun onFragmentInteraction(uri: Uri) {
