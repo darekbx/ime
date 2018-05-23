@@ -1,4 +1,4 @@
-package em.i.ui.secure
+package em.i.ui
 
 import android.hardware.fingerprint.FingerprintManager
 import android.os.Bundle
@@ -36,7 +36,7 @@ class SecureFragment : Fragment() {
 
     fun openPreviewAndClear() {
         val clearTaskOption = NavOptions.Builder().setClearTask(true).build()
-        findNavController().navigate(R.id.action_secureFragment_to_previewFragment,
+        findNavController().navigate(R.id.secureToOptions,
                 null, clearTaskOption)
     }
 

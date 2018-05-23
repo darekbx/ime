@@ -4,10 +4,14 @@ import android.net.Uri
 import android.support.v7.app.AppCompatActivity
 import android.os.Bundle
 import androidx.navigation.findNavController
+import em.i.ui.InformationsFragment
+import em.i.ui.PhotoFragment
+import em.i.ui.StatisticsFragment
 
 class MainActivity : AppCompatActivity(),
-        PreviewFragment.OnFragmentInteractionListener,
-        PhotoFragment.OnFragmentInteractionListener {
+        PhotoFragment.OnFragmentInteractionListener,
+        InformationsFragment.OnFragmentInteractionListener,
+        StatisticsFragment.OnFragmentInteractionListener {
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

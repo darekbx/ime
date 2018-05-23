@@ -1,4 +1,4 @@
-package em.i
+package em.i.ui
 
 import android.content.Context
 import android.net.Uri
@@ -7,10 +7,7 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.Button
-import androidx.navigation.NavOptions
-import androidx.navigation.Navigation
-import androidx.navigation.findNavController
+import em.i.R
 
 
 // TODO: Rename parameter arguments, choose names that match
@@ -21,13 +18,13 @@ private const val ARG_PARAM2 = "param2"
 /**
  * A simple [Fragment] subclass.
  * Activities that contain this fragment must implement the
- * [PreviewFragment.OnFragmentInteractionListener] interface
+ * [InformationsFragment.OnFragmentInteractionListener] interface
  * to handle interaction events.
- * Use the [PreviewFragment.newInstance] factory method to
+ * Use the [InformationsFragment.newInstance] factory method to
  * create an instance of this fragment.
  *
  */
-class PreviewFragment : Fragment() {
+class InformationsFragment : Fragment() {
     // TODO: Rename and change types of parameters
     private var param1: String? = null
     private var param2: String? = null
@@ -44,22 +41,7 @@ class PreviewFragment : Fragment() {
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
         // Inflate the layout for this fragment
-        return inflater.inflate(R.layout.fragment_preview, container, false)
-    }
-
-    override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
-        super.onViewCreated(view, savedInstanceState)
-
-
-        view.findViewById<Button>(R.id.go_to_photo)?.setOnClickListener {
-
-            var bundle = Bundle().apply {
-                putString("param1", "hello?")
-            }
-
-            val direction = PreviewFragmentDirections.action_previewFragment_to_photoFragment(10)
-            view.findNavController().navigate(direction)
-        }
+        return inflater.inflate(R.layout.fragment_item, container, false)
     }
 
     // TODO: Rename method, update argument and hook method into UI event
@@ -104,12 +86,12 @@ class PreviewFragment : Fragment() {
          *
          * @param param1 Parameter 1.
          * @param param2 Parameter 2.
-         * @return A new instance of fragment PreviewFragment.
+         * @return A new instance of fragment ItemFragment.
          */
         // TODO: Rename and change types and number of parameters
         @JvmStatic
         fun newInstance(param1: String, param2: String) =
-                PreviewFragment().apply {
+                InformationsFragment().apply {
                     arguments = Bundle().apply {
                         putString(ARG_PARAM1, param1)
                         putString(ARG_PARAM2, param2)
