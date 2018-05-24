@@ -114,5 +114,15 @@
         app:layout_constraintBottom_toTopOf="@id/button_kitchen"
         />
 
+    <TextView
+        android:id="@+id/debug"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        android:text="0"
+        />
 
 </android.support.constraint.ConstraintLayout>
