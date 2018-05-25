@@ -3,6 +3,7 @@ package em.i.ui
 import android.hardware.fingerprint.FingerprintManager
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -43,7 +44,6 @@ class SecureFragment : Fragment() {
     private val authenticationCallback = object : FingerprintManager.AuthenticationCallback() {
 
         override fun onAuthenticationError(errorCode: Int, errString: CharSequence?) {
-            Toast.makeText(context, "Error: $errString", Toast.LENGTH_SHORT).show()
         }
 
         override fun onAuthenticationFailed() {

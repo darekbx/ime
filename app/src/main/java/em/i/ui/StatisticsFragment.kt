@@ -8,20 +8,15 @@ import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import em.i.ImeApplication
 import em.i.R
 import em.i.repository.Entry
-import em.i.repository.ImeDatabase
 import em.i.viewmodels.StatisticsViewModel
 import kotlinx.android.synthetic.main.fragment_statistics.*
 import java.util.*
 import javax.inject.Inject
 
 class StatisticsFragment : Fragment() {
-
-    @Inject
-    lateinit var database: ImeDatabase
 
     @Inject
     lateinit var viewModelFactory: ViewModelProvider.Factory
@@ -40,9 +35,9 @@ class StatisticsFragment : Fragment() {
         with(viewModel) {
             loadEntries()
             entries?.observe(this@StatisticsFragment, Observer { entries ->
-
-                debug.text = "${entries?.size ?: -1}"
-
+                entries?.let {
+                    chart_view.updateData(it)
+                }
             })
         }
     }
@@ -61,10 +56,14 @@ class StatisticsFragment : Fragment() {
         registerHourClicks()
         registerMinuteClicks()
 
-        button_kitchen?.setOnClickListener {
-            val entry = Entry(hour = this.hour, minute = this.minute, type = 0)
-            viewModel.addEntry(entry)
-        }
+        button_kitchen?.setOnClickListener { addEntry(Entry.TYPE_KITCHEN) }
+        button_enter_office?.setOnClickListener { addEntry(Entry.TYPE_ENTER_OFFICE) }
+        button_met?.setOnClickListener { addEntry(Entry.TYPE_MET) }
+    }
+
+    private fun addEntry(type: Int) {
+        val entry = Entry(hour = this.hour, minute = this.minute, type = type)
+        viewModel.addEntry(entry)
     }
 
     private fun registerHourClicks() {
@@ -80,6 +79,8 @@ class StatisticsFragment : Fragment() {
     private fun initializeCurrentTime() {
         with(Calendar.getInstance()) {
             hour = get(Calendar.HOUR_OF_DAY)
+            hour = Math.min(Entry.MAX_HOUR, hour)
+            hour = Math.max(Entry.MIN_HOUR, hour)
             minute = get(Calendar.MINUTE)
         }
     }
@@ -93,8 +94,7 @@ class StatisticsFragment : Fragment() {
             true -> hour++
             else -> hour--
         }
-        if (hour > 23) hour = 0
-        if (hour < 0) hour = 23
+        hour = applyHourLimits(hour)
         refreshTimelabel()
     }
 
@@ -103,8 +103,19 @@ class StatisticsFragment : Fragment() {
             true -> minute++
             else -> minute--
         }
-        if (minute > 59) minute = 0
-        if (minute < 0) minute = 59
+        minute = applyMinuteLimits(minute)
         refreshTimelabel()
+    }
+
+    private fun applyHourLimits(hour: Int): Int {
+        if (hour > Entry.MAX_HOUR) return Entry.MIN_HOUR
+        if (hour < Entry.MIN_HOUR) return Entry.MAX_HOUR
+        return hour
+    }
+
+    private fun applyMinuteLimits(minute: Int): Int {
+        if (minute > 59) return 0
+        if (minute < 0) return 59
+        return minute
     }
 }

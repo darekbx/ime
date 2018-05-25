@@ -10,4 +10,17 @@ data class Entry(
         @ColumnInfo(name = "hour") var hour: Int = 0,
         @ColumnInfo(name = "minute") var minute: Int = 0,
         @ColumnInfo(name = "type") var type: Int = 0
-)
+) {
+
+    companion object {
+        val MAX_HOUR = 18
+        val MIN_HOUR = 8
+
+        val TYPE_MET = 9
+        val TYPE_KITCHEN = 1
+        val TYPE_ENTER_OFFICE = 2
+    }
+
+    val computedValue: Int
+        get() = hour * 60 + minute
+}
