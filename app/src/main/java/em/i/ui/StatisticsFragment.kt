@@ -86,7 +86,7 @@ class StatisticsFragment : Fragment() {
     }
 
     private fun refreshTimelabel() {
-        time_label.text = "%02d  :  %02d".format(hour, minute)
+        time_label.text = " %02d : %02d ".format(hour, minute)
     }
 
     fun handleHourClick(isPlus: Boolean) {

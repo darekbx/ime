@@ -1,16 +1,16 @@
 <resources>
     <string name="app_name">Ime</string>
 
-    <string name="statistics"><u>Statistics</u></string>
-    <string name="informations"><u>Informations</u></string>
-    <string name="photos"><u>Photos</u></string>
+    <string name="statistics">Statistics</string>
+    <string name="informations">Informations</string>
+    <string name="photos">Photos</string>
 
-    <string name="kitchen"><u>Kitchen</u></string>
-    <string name="met"><u>Met</u></string>
-    <string name="enter_office"><u>Enter office</u></string>
+    <string name="kitchen">Kitchen</string>
+    <string name="met">Met</string>
+    <string name="enter_office">Enter office</string>
 
-    <string name="plus"><u>+</u></string>
-    <string name="minus"><u>-</u></string>
+    <string name="plus">+</string>
+    <string name="minus">-</string>
 
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>

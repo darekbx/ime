@@ -8,6 +8,7 @@ import android.util.AttributeSet
 import android.view.View
 import em.i.R
 import em.i.repository.Entry
+import java.util.*
 
 fun Context?.getColorOrDefault(resId: Int) = this?.getColor(resId) ?: Color.BLACK
 
@@ -33,9 +34,14 @@ class ChartView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         color = Color.LTGRAY
     }
 
+    private val timePaint = Paint().apply {
+        isAntiAlias = true
+        strokeWidth = 0.5f
+    }
+
     private val circlePaint = Paint().apply {
         isAntiAlias = true
-        strokeWidth = 2f
+        strokeWidth = 2.5f
         style = Paint.Style.STROKE
     }
 
@@ -47,12 +53,21 @@ class ChartView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
     val minute = 60F
     val minValue = Entry.MIN_HOUR * minute
     val maxValue = HOUR_SCOPE * minute
+    var curentTime = 0F
     var initialTop = 0F
 
     init {
         kitchenPaint.color = context.getColorOrDefault(R.color.kitchen)
         metPaint.color = context.getColorOrDefault(R.color.met)
+        timePaint.color = context.getColorOrDefault(R.color.met)
         enterOfficePaint.color = context.getColorOrDefault(R.color.enter_office)
+        prepareCurrentTime()
+    }
+
+    private fun prepareCurrentTime() {
+        with(Calendar.getInstance()) {
+            curentTime = (get(Calendar.HOUR_OF_DAY) - 10) * minute + get(Calendar.MINUTE)
+        }
     }
 
     fun updateData(data: List<Entry>) {
@@ -64,7 +79,6 @@ class ChartView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
         super.onDraw(canvas)
         if (data == null) return
         canvas?.let { canvas ->
-
             drawHours(canvas)
             canvas.translate(0F, -BOTTOM_OFFSET)
             drawAxes(canvas)
@@ -87,6 +101,13 @@ class ChartView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
                     canvas.drawLine(left, top - RADIUS - BOTTOM_OFFSET, left, top + RADIUS - BOTTOM_OFFSET, linesPaint)
                     canvas.drawText("%02d".format((it / minute).toInt()), left - 8F, top, linesPaint)
                 }
+
+        drawCurrentTime(ratio, canvas, top)
+    }
+
+    private fun drawCurrentTime(ratio: Float, canvas: Canvas, top: Float) {
+        val left = width - ((maxValue - (curentTime - minValue)) * ratio)
+        canvas.drawLine(left, 0F, left, top + RADIUS - BOTTOM_OFFSET, timePaint)
     }
 
     fun drawData(canvas: Canvas) {
