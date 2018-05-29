@@ -66,7 +66,7 @@ class ChartView(context: Context?, attrs: AttributeSet?) : View(context, attrs) 
 
     private fun prepareCurrentTime() {
         with(Calendar.getInstance()) {
-            curentTime = (get(Calendar.HOUR_OF_DAY) - 10) * minute + get(Calendar.MINUTE)
+            curentTime = get(Calendar.HOUR_OF_DAY) * minute + get(Calendar.MINUTE)
         }
     }
 
