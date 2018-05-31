@@ -12,6 +12,10 @@
     <string name="plus">+</string>
     <string name="minus">-</string>
 
-    <!-- TODO: Remove or change this placeholder text -->
-    <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="menu_add_photo">Add a photo</string>
+
+    <string name="prompt_add">Add</string>
+    <string name="prompt_paste">Paste</string>
+    <string name="prompt_cancel">Cancel</string>
+
 </resources>

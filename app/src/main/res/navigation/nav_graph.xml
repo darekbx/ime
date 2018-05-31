@@ -22,11 +22,11 @@
             android:id="@+id/optionsToInformations"
             app:destination="@id/informationsFragment" />
         <action
-            android:id="@+id/optionsToPhotos"
-            app:destination="@id/photoFragment" />
-        <action
             android:id="@+id/optionsToStatistics"
             app:destination="@id/statisticsFragment" />
+        <action
+            android:id="@+id/optionsToPhotos"
+            app:destination="@id/photosFragment" />
     </fragment>
     <fragment
         android:id="@+id/informationsFragment"
@@ -47,4 +47,13 @@
         android:name="em.i.ui.StatisticsFragment"
         android:label="statistics"
         tools:layout="@layout/fragment_statistics" />
+    <fragment
+        android:id="@+id/photosFragment"
+        android:name="em.i.ui.PhotosFragment"
+        android:label="Photos"
+        tools:layout="@layout/fragment_photos">
+        <action
+            android:id="@+id/photosToPhoto"
+            app:destination="@id/photoFragment" />
+    </fragment>
 </navigation>
