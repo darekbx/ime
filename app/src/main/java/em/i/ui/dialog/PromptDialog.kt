@@ -36,8 +36,9 @@ class PromptDialog: DialogFragment() {
     }
 
     private fun handleAdd() {
-        val url = dialog.text.text.toString()
+        val url = dialog.label.text.toString()
         listener.invoke(url)
+        dismiss()
     }
 
     private fun pasteFromClipboard(context: Context) {

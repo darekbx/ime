@@ -50,7 +50,7 @@ class PhotosFragment : Fragment() {
         val dialog = PromptDialog()
         with(dialog) {
             listener = { url -> startWork(url) }
-            show(fragmentManager, PromptDialog::class.java.simpleName)
+            show(this@PhotosFragment.fragmentManager, PromptDialog::class.java.simpleName)
         }
     }
 }
