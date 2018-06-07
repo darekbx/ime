@@ -16,6 +16,7 @@ import androidx.work.*
 import androidx.work.ktx.OneTimeWorkRequestBuilder
 import em.i.R
 import em.i.remote.ImageWorker
+import em.i.ui.adapter.PhotoAdapter
 import em.i.ui.dialog.PromptDialog
 import kotlinx.android.synthetic.main.fragment_photos.*
 import java.io.File
@@ -24,9 +25,12 @@ import java.util.*
 class PhotosFragment : Fragment() {
 
     companion object {
+        val FILE_PREFIX = "ime_"
         val WRITE_PERMISSION = Manifest.permission.WRITE_EXTERNAL_STORAGE
         val PERMISSION_REQUEST_CODE = 1
     }
+
+    lateinit var adapter: PhotoAdapter
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
                               savedInstanceState: Bundle?): View? {
@@ -42,39 +46,57 @@ class PhotosFragment : Fragment() {
             }
             return@setOnNavigationItemSelectedListener true
         }
+
+        initAdapter(view)
+        refreshList()
+    }
+
+    private fun initAdapter(view: View) {
+        adapter = PhotoAdapter(view.context)
+        list.adapter = adapter
+    }
+
+    private fun refreshList() {
+        context?.let { context ->
+
+            context.dataDir.list()
+                    .filter { it.substring(0, 4) == FILE_PREFIX }
+                    .map { File(context.dataDir, it).absolutePath }
+                    .map { adapter.add(it) }
+
+            adapter.notifyDataSetChanged()
+        }
     }
 
     private fun startWork(url: String) {
-        val fileUuid = UUID.randomUUID().toString()
-        val file = File(context?.dataDir, fileUuid).absolutePath
-        val dataIn = Data.Builder()
-                .putString(ImageWorker.URL_KEY, url)
-                .putString(ImageWorker.OUT_FILE_KEY, file)
-                .build()
+        val dataIn = createInputData(url)
         val work = OneTimeWorkRequestBuilder<ImageWorker>()
                 .setInputData(dataIn)
                 .build()
         with(WorkManager.getInstance()) {
             enqueue(work)
             this.getStatusById(work.id).observe(this@PhotosFragment, Observer { status ->
-                val path = status?.outputData?.getString(ImageWorker.OUT_FILE_KEY, "NULL")
-
-                Toast.makeText(context, "$path\n\n$status", Toast.LENGTH_SHORT).show()
-
-                status?.let { status ->
-                    if (status.state == State.SUCCEEDED) {
-
-                        Log.v("-------", "$path")
-                        File(path)?.delete()
-
-                        File(path)?.parentFile?.list()?.map {
-
-                            Log.v("-------", "$it")
-                        }
-                    }
-                }
+                status?.let { status -> handleState(status.state) }
             })
         }
+    }
+
+    private fun handleState(state:State) {
+        when (state) {
+            State.SUCCEEDED -> refreshList()
+            State.FAILED -> Toast.makeText(activity, state.name, Toast.LENGTH_SHORT)
+            else -> { }
+        }
+    }
+
+    private fun createInputData(url: String): Data {
+        val fileUuid = UUID.randomUUID().toString()
+        val file = File(context?.dataDir, FILE_PREFIX + fileUuid).absolutePath
+        return Data
+                .Builder()
+                .putString(ImageWorker.URL_KEY, url)
+                .putString(ImageWorker.OUT_FILE_KEY, file)
+                .build()
     }
 
     private fun checkPermissions() {
