@@ -7,7 +7,6 @@ import android.os.Bundle
 import android.support.v4.app.ActivityCompat
 import android.support.v4.app.Fragment
 import android.support.v4.content.ContextCompat
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -61,6 +60,7 @@ class PhotosFragment : Fragment() {
 
             context.dataDir.list()
                     .filter { it.substring(0, 4) == FILE_PREFIX }
+                    //.forEach { File(context.dataDir, it).delete() }
                     .map { File(context.dataDir, it).absolutePath }
                     .map { adapter.add(it) }
 
