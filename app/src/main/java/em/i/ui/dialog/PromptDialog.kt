@@ -54,7 +54,7 @@ class PromptDialog: DialogFragment() {
     private fun takeValueFromClipboard(context: Context): CharSequence? {
         val clipboardManager = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager
         return clipboardManager.primaryClip
-                .takeIf { it.itemCount > 0 }
+                .takeIf { it != null && it.itemCount > 0 }
                 .let { primaryClip ->
                     val value = primaryClip?.getItemAt(0)
                     value?.let { value -> return value.text }
