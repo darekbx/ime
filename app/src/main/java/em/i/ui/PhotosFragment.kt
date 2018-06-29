@@ -53,14 +53,32 @@ class PhotosFragment : Fragment() {
     private fun initAdapter(view: View) {
         adapter = PhotoAdapter(view.context)
         list.adapter = adapter
+        list.setOnItemLongClickListener { parent, view, position, id ->
+            val path = adapter.getItem(position)
+            deletePhoto(path)
+            true
+        }
+        list.setOnItemClickListener { parent, view, position, id ->
+            val path = adapter.getItem(position)
+            openPreview(path)
+        }
+    }
+
+    private fun openPreview(path: String) {
+    }
+
+    private fun deletePhoto(path: String) {
+        File(path).delete()
+        refreshList()
     }
 
     private fun refreshList() {
         context?.let { context ->
 
+            adapter.clear()
+
             context.dataDir.list()
                     .filter { it.substring(0, 4) == FILE_PREFIX }
-                    //.forEach { File(context.dataDir, it).delete() }
                     .map { File(context.dataDir, it).absolutePath }
                     .map { adapter.add(it) }
 
@@ -69,6 +87,8 @@ class PhotosFragment : Fragment() {
     }
 
     private fun startWork(url: String) {
+        progress_layout.visibility = View.VISIBLE
+
         val dataIn = createInputData(url)
         val work = OneTimeWorkRequestBuilder<ImageWorker>()
                 .setInputData(dataIn)
@@ -83,10 +103,20 @@ class PhotosFragment : Fragment() {
 
     private fun handleState(state:State) {
         when (state) {
-            State.SUCCEEDED -> refreshList()
-            State.FAILED -> Toast.makeText(activity, state.name, Toast.LENGTH_SHORT)
+            State.SUCCEEDED -> {
+                refreshList()
+                hideProgress()
+            }
+            State.FAILED -> {
+                Toast.makeText(activity, state.name, Toast.LENGTH_SHORT)
+                hideProgress()
+            }
             else -> { }
         }
+    }
+
+    private fun hideProgress() {
+        progress_layout.visibility = View.GONE
     }
 
     private fun createInputData(url: String): Data {

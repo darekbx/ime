@@ -3,7 +3,6 @@ package em.i.remote
 import android.graphics.Bitmap
 import android.graphics.BitmapFactory
 import android.text.TextUtils
-import androidx.work.Data
 import androidx.work.Worker
 import androidx.work.ktx.toWorkData
 import java.io.File
@@ -37,8 +36,10 @@ class ImageWorker: Worker() {
             outputData = mapOf(OUT_FILE_KEY to fileString).toWorkData()
             return WorkerResult.SUCCESS
         } catch (e: MalformedURLException) {
+            e.printStackTrace()
             return WorkerResult.FAILURE
         } catch (e: IOException) {
+            e.printStackTrace()
             return WorkerResult.FAILURE
         }
     }

@@ -30,4 +30,24 @@
         app:itemTextColor="@android:color/white"
         app:menu="@menu/menu_photos" />
 
+    <FrameLayout
+        android:id="@+id/progress_layout"
+        android:layout_width="0dp"
+        android:layout_height="0dp"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        android:background="#bfff"
+        android:visibility="gone"
+        >
+        <ProgressBar
+            android:layout_width="50dp"
+            android:layout_height="50dp"
+            android:layout_gravity="center"
+            android:indeterminateTint="@color/colorPrimaryDark"
+            android:indeterminate="true"
+            />
+    </FrameLayout>
+
 </android.support.constraint.ConstraintLayout>
