@@ -39,8 +39,8 @@
         android:label="Photos"
         tools:layout="@layout/fragment_photo">
         <argument
-            android:name="photo_id"
-            app:type="integer" />
+            android:name="photo_path"
+            app:type="string" />
     </fragment>
     <fragment
         android:id="@+id/statisticsFragment"
