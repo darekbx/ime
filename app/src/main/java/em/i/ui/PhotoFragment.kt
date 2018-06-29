@@ -1,12 +1,14 @@
 package em.i.ui
 
+import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
-import android.widget.TextView
 import em.i.R
+import kotlinx.android.synthetic.main.fragment_photo.*
+import java.io.File
 
 class PhotoFragment : Fragment() {
 
@@ -20,7 +22,7 @@ class PhotoFragment : Fragment() {
 
         arguments?.let {
             val arguments = PhotoFragmentArgs.fromBundle(it)
-            view.findViewById<TextView>(R.id.text).text = arguments.photo_path
+            image_view.setImageURI(Uri.fromFile(File(arguments.photo_path)))
         }
 
     }
