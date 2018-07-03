@@ -11,6 +11,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.navigation.Navigation
 import androidx.navigation.findNavController
 import androidx.work.*
 import androidx.work.ktx.OneTimeWorkRequestBuilder
@@ -66,8 +67,16 @@ class PhotosFragment : Fragment() {
     }
 
     private fun openPreview(path: String) {
-        val action = PhotosFragmentDirections.photosToPhoto(path)
-        view?.findNavController()?.navigate(action)
+        view?.let { view ->
+
+            //val action = PhotosFragmentDirections.listToPhoto(path)
+            //Navigation.findNavController(view).navigate(action)
+
+            // Temporary code for baypass problems with navigation
+            val args = Bundle()
+            args.putString("photo_path", path)
+            Navigation.findNavController(view).navigate(R.id.photoFragment, args)
+        }
     }
 
     private fun deletePhoto(path: String) {

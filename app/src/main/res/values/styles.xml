@@ -8,4 +8,13 @@
         <item name="colorAccent">@color/colorAccent</item>
     </style>
 
+    <style name="ControlImage">
+        <item name="android:tint">#4000</item>
+        <item name="android:tintMode">src_in</item>
+        <item name="android:background">@drawable/bg_control</item>
+    </style>
+    <style name="Arrow" parent="ControlImage">
+        <item name="android:src">@drawable/ic_up</item>
+    </style>
+
 </resources>

@@ -53,7 +53,7 @@
         android:label="Photos"
         tools:layout="@layout/fragment_photos">
         <action
-            android:id="@+id/photosToPhoto"
+            android:id="@+id/listToPhoto"
             app:destination="@id/photoFragment" />
     </fragment>
 </navigation>

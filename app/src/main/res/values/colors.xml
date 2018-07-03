@@ -7,4 +7,6 @@
     <color name="kitchen">#283593</color>
     <color name="met">#D81B60</color>
     <color name="enter_office">#2e7d32</color>
+
+    <color name="control_bg">#2fff</color>
 </resources>
