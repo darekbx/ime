@@ -5,6 +5,7 @@ import android.arch.lifecycle.ViewModelProvider
 import dagger.Binds
 import dagger.Module
 import dagger.multibindings.IntoMap
+import em.i.viewmodels.PhotoViewModel
 import em.i.viewmodels.StatisticsViewModel
 
 @Module
@@ -17,4 +18,9 @@ abstract class ViewModelModule {
     @IntoMap
     @ViewModelFactory.ViewModelKey(StatisticsViewModel::class)
     internal abstract fun statisticsViewModel(viewModel: StatisticsViewModel): ViewModel
+
+    @Binds
+    @IntoMap
+    @ViewModelFactory.ViewModelKey(PhotoViewModel::class)
+    internal abstract fun photoViewModel(viewModel: PhotoViewModel): ViewModel
 }

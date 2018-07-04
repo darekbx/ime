@@ -5,10 +5,13 @@
     android:layout_height="match_parent"
     tools:context=".ui.InformationsFragment">
 
-    <!-- TODO: Update blank fragment layout -->
-    <TextView
+    <EditText
+        android:id="@+id/informations"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:text="item" />
+        android:inputType="textMultiLine"
+        android:gravity="top|left"
+        android:padding="8dp"
+        />
 
 </FrameLayout>
