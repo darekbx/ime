@@ -11,6 +11,8 @@
 
     <string name="plus">+</string>
     <string name="minus">-</string>
+    <string name="zoom_info">Zoom: %.1fx</string>
+    <string name="zoom_default">Zoom: 1.0x</string>
 
     <string name="menu_add_photo">Add a photo</string>
 

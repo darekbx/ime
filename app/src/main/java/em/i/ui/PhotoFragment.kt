@@ -1,10 +1,11 @@
 package em.i.ui
 
+import android.arch.lifecycle.Observer
 import android.arch.lifecycle.ViewModelProvider
 import android.arch.lifecycle.ViewModelProviders
-import android.net.Uri
 import android.os.Bundle
 import android.support.v4.app.Fragment
+import android.util.Size
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -30,6 +31,8 @@ class PhotoFragment : Fragment(), View.OnClickListener {
         }
 
         viewModel = ViewModelProviders.of(this, viewModelFactory)[PhotoViewModel::class.java]
+        viewModel.computedImage.observe(this@PhotoFragment, Observer { image_view.setImageBitmap(it) })
+        viewModel.zoom.observe(this@PhotoFragment, Observer { info.setText(getString(R.string.zoom_info, it)) })
     }
 
     override fun onCreateView(inflater: LayoutInflater, container: ViewGroup?,
@@ -42,10 +45,19 @@ class PhotoFragment : Fragment(), View.OnClickListener {
 
         arguments?.let {
             val arguments = PhotoFragmentArgs.fromBundle(it)
-            image_view.setImageURI(Uri.fromFile(File(arguments.photo_path)))
+            val path = File(arguments.photo_path)
+            image_view.post { displayImage(path) }
         }
 
         bindControls()
+    }
+
+    private fun displayImage(path: File) {
+        with(viewModel) {
+            pathToImage = path.absolutePath
+            containerSize = Size(image_view.width, image_view.height)
+            loadImage()
+        }
     }
 
     fun bindControls() {
